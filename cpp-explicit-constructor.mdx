@@ -95,5 +95,5 @@ Now the caller has to take one of the following approach to call `fill_something
     fill_something(static_cast<RGB>(semi_transparent_red));
     fill_something(RGB{semi_transparent_red});
     fill_something(RGB(semi_transparent_red));
-    fill_something((RGB)semi_transparent_red);
+    fill_something((RGB)semi_transparent_red); // Not recommended to use this c-style cast; static 
 ```
