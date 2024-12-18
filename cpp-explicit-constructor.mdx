@@ -12,9 +12,8 @@ private:
 
 public:
     RGBA(const uint8_t red, const uint8_t green, const uint8_t blue, const uint8_t alpha = 255)
-        : m_red{red}, m_green{green}, m_blue{blue}, m_alpha{alpha}
     {
-		// ... constructor
+		// ... more initialization
     }
 
 	// generate debug outputs
@@ -27,11 +26,14 @@ However for a certain renderer, alpha channel isn't supported and will be ignore
 ```clike
 class RGB
 {
+private:
+    // ... members
+
 public:
     RGB(const RGBA& rgba)
     {
         std::cout << "drop the alpha channel from " << rgba.debug_string() << std::endl;
-		// ... 
+		// ... more initialization
     }
 };
 
