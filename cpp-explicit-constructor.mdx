@@ -4,7 +4,7 @@ _The `explicit` specifier has been extended since c++17, this paragraph only cov
 
 The `explicit` specifier is used to demand the compiler not treat a constructor as converting constructor. To understand what the converting constructor is and how it is used, assume we have following existing class definitions:
 
-```plaintext
+```clike
 class RGBA
 {
 private:
@@ -17,7 +17,7 @@ public:
 		// ... constructor
     }
 
-	// generate debug string
+	// generate debug outputs
     std::string debug_string() const;
 };
 ```
