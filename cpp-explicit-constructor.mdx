@@ -21,7 +21,7 @@ public:
 };
 ```
 
-In a specific renderer, the alpha channel is unsupported and will be ignored in its `fill_something` method. To prevent confusion for callers accidentally specifying an alpha value or interpreting its omission as a bug, we introduce a new class `RGB` without an alpha channel. This is defined as follows:
+In a specific renderer, the alpha channel is unsupported and will be ignored in its `fill_something` method. To prevent confusion for callers interpreting the  omission as a bug or accidentally specifying an alpha value, we introduce a new class `RGB` without an alpha channel. This is defined as follows:
 
 ```cpp
 class RGB
