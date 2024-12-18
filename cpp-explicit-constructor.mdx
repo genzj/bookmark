@@ -1,10 +1,10 @@
 # Explicit Constructor
 
-_The `explicit` specifier has been extended since c++17, this paragraph only covers its usage with constructors._
+_The `explicit` specifier has been extended since C++17; this section focuses on its use with constructors._
 
-The `explicit` specifier is used to demand the compiler not treat a constructor as converting constructor. To understand what the converting constructor is and how it is used, assume we have following existing class definition:
+The `explicit` specifier prevents the compiler from treating a constructor as a converting constructor. To illustrate what a converting constructor is and how it is used, consider the following class definition:
 
-```clike
+```cpp
 class RGBA
 {
 private:
@@ -16,14 +16,14 @@ public:
 		// ... more initialization
     }
 
-	// generate debug outputs
+	// Generate debug outputs
     std::string debug_string() const;
 };
 ```
 
-However for a certain renderer, alpha channel isn't supported and will be ignored in its `fill_something` method. To avoid confuse callers by accidently specifying the alpha value, or considering losing of alpha as a bug, we decided to add a new class `RGB` which doesn't have the alpha channel, and use it in the related method, which is defined as
+In a specific renderer, the alpha channel is unsupported and will be ignored in its `fill_something` method. To prevent confusion for callers accidentally specifying an alpha value or interpreting its omission as a bug, we introduce a new class `RGB` without an alpha channel. This is defined as follows:
 
-```clike
+```cpp
 class RGB
 {
 private:
@@ -32,42 +32,42 @@ private:
 public:
     RGB(const RGBA& rgba)
     {
-        std::cout << "drop the alpha channel from " << rgba.debug_string() << std::endl;
+        std::cout << "Dropping the alpha channel from " << rgba.debug_string() << std::endl;
 		// ... more initialization
     }
 };
 
 void fill_something(const RGB& rgb)
 {
-    // fill something but doesn't support the alpha channel
+    // Fill something but doesn't support the alpha channel
 }
 ```
 
-Thus a caller of the `fill_something` is able to obtain a clear view that the alpha channel will be ignored by writing:
+Now, when calling `fill_something`, the user can clearly see that the alpha channel is ignored:
 
-```clike
-    const RGBA rgba_red{255, 0, 0, 255};
-    const RGB rgb_red{rgba_red};
-    fill_something(rgb_red);
+```cpp
+const RGBA rgba_red{255, 0, 0, 255};
+const RGB rgb_red{rgba_red};
+fill_something(rgb_red);
 ```
 
-However, suprisingly, following invocation does **NOT** lead to compiler errors; instead the `fill_something` is successfully invoked, with the alpha channel of the parameter being silently dropped:
+However, surprisingly, the following invocation does **not** result in a compiler error. Instead, `fill_something` is successfully invoked, with the alpha channel of the parameter being silently dropped:
 
-```clike
-    const RGBA semi_transparent_red{255, 0, 0, 128};
-    fill_something(semi_transparent_red);
+```cpp
+const RGBA semi_transparent_red{255, 0, 0, 128};
+fill_something(semi_transparent_red);
 ```
 
-It invalidates our design scope that a caller should be aware of alpha dropping when writing the code. The reason that above invocation works is because the _implicit conversion_: the compiler identifies the `RGB(const RGBA& rgba)` takes one parameter of `RGBA&` and constructs an `RGB` instance, so it treats it as an implicit convertor, officially named as [converting constructor](https://en.cppreference.com/w/cpp/language/converting_constructor), to make the `fill_something` compatible with the `RGBA` type. Concepturally, the compiler converts the invocation into following:
+This undermines our design goal of ensuring that callers are aware of the alpha drop. The reason this works is due to _implicit conversion_: the compiler recognizes that `RGB(const RGBA& rgba)` accepts a `RGBA&` and constructs an `RGB` instance, treating it as an implicit conversion, officially referred to as a [converting constructor](https://en.cppreference.com/w/cpp/language/converting_constructor). The compiler effectively transforms the call into the following:
 
-```clike
-    const RGBA semi_transparent_red{255, 0, 0, 128};
-    fill_something(RGB(semi_transparent_red)); // Note that a new RGB object is created based on the parameter.
+```cpp
+const RGBA semi_transparent_red{255, 0, 0, 128};
+fill_something(RGB(semi_transparent_red)); // A new RGB object is created based on the parameter.
 ```
 
-The `explicit` specifier can be used to make sure that the compiler doesn't take our constructor into implict conversions. After adding it to `RGB`'s constructor, `fill_something` cannot be called with a `RGBA` parameter any more.
+Using the `explicit` specifier ensures that the compiler does not treat our constructor as a part of implicit conversions. By adding `explicit` to `RGB`'s constructor, `fill_something` can no longer be called with a `RGBA` parameter:
 
-```clike
+```cpp
 class RGB
 {
 private:
@@ -76,24 +76,24 @@ private:
 public:
     explicit RGB(const RGBA& rgba)
     {
-        std::cout << "drop the alpha channel from " << rgba.debug_string() << std::endl;
+        std::cout << "Dropping the alpha channel from " << rgba.debug_string() << std::endl;
 		// ... more initialization
     }
 };
 
 // ...
-    const RGBA semi_transparent_red{255, 0, 0, 128};
-    fill_something(semi_transparent_red); // ERROR!
-	// building error: 
-	//    no matching function for call to 'fill_something';
-    //    candidate function not viable: no known conversion from 'const RGBA' to 'const RGB' for 1st argument
+const RGBA semi_transparent_red{255, 0, 0, 128};
+fill_something(semi_transparent_red); // ERROR!
+// Build error: 
+//    no matching function for call to 'fill_something';
+//    candidate function not viable: no known conversion from 'const RGBA' to 'const RGB' for 1st argument
 ```
 
-Now the caller has to take one of the following approach to call `fill_something` with a `RGBA` instance. They are all _explict conversions_ and reminding the caller about alpha channel dropping.
+Now, to call `fill_something` with a `RGBA` instance, the caller must take one of the following approaches. All of these are _explicit conversions_, reminding the caller about the alpha channel drop:
 
-```clike
-    fill_something(static_cast<RGB>(semi_transparent_red));
-    fill_something(RGB{semi_transparent_red});
-    fill_something(RGB(semi_transparent_red));
-    fill_something((RGB)semi_transparent_red); // Not recommended to use c-style cast; static_cast is preferrable. 
+```cpp
+fill_something(static_cast<RGB>(semi_transparent_red));
+fill_something(RGB{semi_transparent_red});
+fill_something(RGB(semi_transparent_red));
+fill_something((RGB)semi_transparent_red); // Not recommended; prefer static_cast.
 ```
