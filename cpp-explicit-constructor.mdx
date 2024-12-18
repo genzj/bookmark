@@ -98,4 +98,4 @@ fill_something(RGB(semi_transparent_red));
 fill_something((RGB)semi_transparent_red); // Not recommended; prefer static_cast.
 ```
 
-As a general practice, do not define implicit conversions; use the `explicit` keyword for conversion operators and single-argument constructors, except in rare cases, such as for types meant to be interchangeable (ref: [Implicit Conversions, Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html#Implicit_Conversions)).
+As a general rule, avoid defining implicit conversions. Use the `explicit` keyword for conversion operators and single-argument constructors, except in rare cases, such as when types are intended to be interchangeable (see [Implicit Conversions, Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html#Implicit_Conversions)).
