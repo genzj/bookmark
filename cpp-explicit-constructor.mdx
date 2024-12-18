@@ -60,5 +60,7 @@ However, suprisingly, following invocation does **NOT** lead to compiler errors;
 
 It invalidates our design scope that a caller should be aware of alpha dropping when writing the code. The reason that above invocation works is because the _implicit conversion_, which concepturally works like
 
-```plaintext
+```clike
+    const RGBA semi_transparent_red{255, 0, 0, 128};
+    fill_something(RGB(semi_transparent_red));
 ```
