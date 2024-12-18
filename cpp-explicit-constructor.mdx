@@ -51,7 +51,7 @@ Thus a caller of the `fill_something` is able to obtain a clear view that the al
     fill_something(rgb_red);
 ```
 
-However, suprisingly, following invocation does **NOT** lead to compiler errors; instead the `fill_something` is still invoked, meanwhile the alpha channel of the parameter is silently dropped:
+However, suprisingly, following invocation does **NOT** lead to compiler errors; instead the `fill_something` is successfully invoked, with the alpha channel of the parameter being silently dropped:
 
 ```clike
     const RGBA semi_transparent_red{255, 0, 0, 128};
