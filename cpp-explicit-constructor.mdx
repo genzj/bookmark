@@ -53,5 +53,9 @@ Thus a caller of the `fill_something` is supposed to have a clear view that the 
 
 However, suprisingly, following invocation does **NOT** lead to compiler errors; instead the `fill_something` is still invoked, meanwhile the alpha channel of the parameter is silently dropped:
 
-```plaintext
+```clike
+    const RGBA semi_transparent_red{255, 0, 0, 128};
+    fill_something(semi_transparent_red);
 ```
+
+It invalidates our design scope that a caller s
