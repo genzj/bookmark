@@ -65,4 +65,4 @@ It invalidates our design scope that a caller should be aware of alpha dropping 
     fill_something(RGB(semi_transparent_red)); // Note that a new RGB object is created based on the parameter.
 ```
 
-The `explicit` specifier can be used to make sure that the compiler doesn't take our constructor into implict conversions. After adding it to `RGB`'s constructor, 
+The `explicit` specifier can be used to make sure that the compiler doesn't take our constructor into implict conversions. After adding it to `RGB`'s constructor, `fill_something` cannot be called with a `RGBA` parameter any more.
