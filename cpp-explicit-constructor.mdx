@@ -97,3 +97,5 @@ fill_something(RGB{semi_transparent_red});
 fill_something(RGB(semi_transparent_red));
 fill_something((RGB)semi_transparent_red); // Not recommended; prefer static_cast.
 ```
+
+As a general practice, Do not define implicit conversions. Use the `explicit` keyword for conversion operators and single-argument constructors.
