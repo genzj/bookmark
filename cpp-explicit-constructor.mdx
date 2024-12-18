@@ -62,5 +62,5 @@ It invalidates our design scope that a caller should be aware of alpha dropping 
 
 ```clike
     const RGBA semi_transparent_red{255, 0, 0, 128};
-    fill_something(RGB(semi_transparent_red)); // <<
+    fill_something(RGB(semi_transparent_red)); // Note that a new RGB object is created based on the parameter.
 ```
