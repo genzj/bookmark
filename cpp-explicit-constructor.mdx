@@ -5,5 +5,22 @@ _The `explicit` specifier has been extended since c++17, this paragraph only cov
 The `explicit` specifier is used to demand the compiler not treat a constructor as converting constructor. To understand what the converting constructor is and how it is used, assume we have following existing class definitions:
 
 ```plaintext
-specifier
+class RGBA
+{
+private:
+    // ... members
+
+public:
+    RGBA(const uint8_t red, const uint8_t green, const uint8_t blue, const uint8_t alpha = 255)
+        : m_red{red}, m_green{green}, m_blue{blue}, m_alpha{alpha}
+    {
+    }
+
+    [[nodiscard]] std::string debug_string() const
+    {
+        std::stringstream s;
+        s << "r: " << static_cast<int>(m_red) << " g: " << static_cast<int>(m_green) << " b: " << static_cast<int>(m_blue) << " a: " << static_cast<int>(m_alpha) << std::endl;
+        return s.str();
+    }
+};
 ```
