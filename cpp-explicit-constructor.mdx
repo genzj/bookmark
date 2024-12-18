@@ -83,8 +83,10 @@ public:
 
 // ...
     const RGBA semi_transparent_red{255, 0, 0, 128};
-    fill_something(semi_transparent_red); 
+    fill_something(semi_transparent_red); // ERROR!
 	// building error: 
 	//    no matching function for call to 'fill_something';
     //    candidate function not viable: no known conversion from 'const RGBA' to 'const RGB' for 1st argument
 ```
+
+Now the caller hav
