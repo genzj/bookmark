@@ -58,7 +58,7 @@ const RGBA semi_transparent_red{255, 0, 0, 128};
 fill_something(semi_transparent_red);
 ```
 
-This undermines our design goal of ensuring that callers are aware of the alpha drop. The reason this works is due to _implicit conversion_: the compiler recognizes that `RGB(const RGBA& rgba)` accepts a `RGBA&` and constructs an `RGB` instance, treating it as an implicit conversion, officially referred to as a [converting constructor](https://en.cppreference.com/w/cpp/language/converting_constructor). The compiler effectively transforms the call into the following:
+This undermines our design goal of ensuring that callers are aware of the alpha drop. The reason this works is due to _implicit conversion_: the compiler recognizes that `RGB(const RGBA& rgba)` accepts a `RGBA&` and constructs an `RGB` instance, treating it as an implicit conversion tool, officially referred to as a [converting constructor](https://en.cppreference.com/w/cpp/language/converting_constructor). The compiler effectively transforms the call into the following:
 
 ```cpp
 const RGBA semi_transparent_red{255, 0, 0, 128};
