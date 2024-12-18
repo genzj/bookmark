@@ -32,7 +32,7 @@ private:
 public:
     RGB(const RGBA& rgba)
     {
-        std::cout << "Dropping the alpha channel from " << rgba.debug_string() << std::endl;
+        debug_logger << "Dropping the alpha channel from " << rgba.debug_string();
 		// ... more initialization
     }
 };
