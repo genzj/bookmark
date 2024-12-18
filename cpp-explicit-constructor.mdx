@@ -58,7 +58,7 @@ However, suprisingly, following invocation does **NOT** lead to compiler errors;
     fill_something(semi_transparent_red);
 ```
 
-It invalidates our design scope that a caller should be aware of alpha dropping when writing the code. The reason that above invocation works is because the _implicit conversion_: the compiler finds the `RGB(const RGBA& rgba)` takes one parameter of `RGBA&` and constructs an `RGB` instance, so it treats it as an implicit convertor which is officially named as [converting constructor](https://en.cppreference.com/w/cpp/language/converting_constructor). Concepturally, the compiler converts the invocation into following:
+It invalidates our design scope that a caller should be aware of alpha dropping when writing the code. The reason that above invocation works is because the _implicit conversion_: the compiler identifies the `RGB(const RGBA& rgba)` takes one parameter of `RGBA&` and constructs an `RGB` instance, so it treats it as an implicit convertor, officially named as [converting constructor](https://en.cppreference.com/w/cpp/language/converting_constructor). Concepturally, the compiler converts the invocation into following:
 
 ```clike
     const RGBA semi_transparent_red{255, 0, 0, 128};
