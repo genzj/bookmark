@@ -46,7 +46,7 @@ void fill_something(const RGB& rgb)
 Thus a caller of the `fill_something` is able to obtain a clear view that the alpha channel will be ignored by writing:
 
 ```clike
-    const RGBA rgba_red{255, 0, 0};
+    const RGBA rgba_red{255, 0, 0, 255};
     const RGB rgb_red{rgba_red};
     fill_something(rgb_red);
 ```
