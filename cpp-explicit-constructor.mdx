@@ -89,7 +89,7 @@ public:
     //    candidate function not viable: no known conversion from 'const RGBA' to 'const RGB' for 1st argument
 ```
 
-Now the caller has to take one of the following approach to call `fill_something` with a `RGBA` instance. They are all _explict_ conversions and reminding the caller about alpha channel dropping.
+Now the caller has to take one of the following approach to call `fill_something` with a `RGBA` instance. They are all _explict conversions_ and reminding the caller about alpha channel dropping.
 
 ```clike
     fill_something(static_cast<RGB>(semi_transparent_red));
