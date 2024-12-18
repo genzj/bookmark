@@ -22,4 +22,4 @@ public:
 };
 ```
 
-However for a certain renderer, alpha channel isn't supported and will be ignored in its `fill_something` method. To avoid confuse callers by accidently specifying the a
+However for a certain renderer, alpha channel isn't supported and will be ignored in its `fill_something` method. To avoid confuse callers by accidently specifying the alpha value, or considering losing of alpha as a bug, we decided to add a new class `RGB` 
