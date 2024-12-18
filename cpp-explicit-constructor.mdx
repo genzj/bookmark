@@ -66,3 +66,18 @@ It invalidates our design scope that a caller should be aware of alpha dropping 
 ```
 
 The `explicit` specifier can be used to make sure that the compiler doesn't take our constructor into implict conversions. After adding it to `RGB`'s constructor, `fill_something` cannot be called with a `RGBA` parameter any more.
+
+```clike
+class RGB
+{
+private:
+    // ... members
+
+public:
+    explicit RGB(const RGBA& rgba)
+    {
+        std::cout << "drop the alpha channel from " << rgba.debug_string() << std::endl;
+		// ... more initialization
+    }
+};
+```
