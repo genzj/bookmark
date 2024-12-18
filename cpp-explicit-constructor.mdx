@@ -2,7 +2,7 @@
 
 _The `explicit` specifier has been extended since C++17; this section focuses on its use with constructors._
 
-The `explicit` specifier prevents the compiler from treating a constructor as a converting constructor. To illustrate what a converting constructor is and how it is used, consider the following class definition:
+The `explicit` specifier prevents the compiler from treating a constructor as a converting constructor. To illustrate what a converting constructor is and how it is used, consider the following class definition regarding a RGBA color type:
 
 ```cpp
 class RGBA
@@ -13,7 +13,7 @@ private:
 public:
     RGBA(const uint8_t red, const uint8_t green, const uint8_t blue, const uint8_t alpha = 255)
     {
-		// ... more initialization
+		// ... initialization
     }
 
 	// Generate debug outputs
