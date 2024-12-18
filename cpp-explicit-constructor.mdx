@@ -43,7 +43,7 @@ void fill_something(const RGB& rgb)
 }
 ```
 
-Thus a caller of the `fill_something` is supposed to have a clear view that the alpha channel will be ignored by writing:
+Thus a caller of the `fill_something` is able to obtain a clear view that the alpha channel will be ignored by writing:
 
 ```clike
     const RGBA rgba_red{255, 0, 0};
@@ -58,4 +58,4 @@ However, suprisingly, following invocation does **NOT** lead to compiler errors;
     fill_something(semi_transparent_red);
 ```
 
-It invalidates our design scope that a caller should be aware of alpha dropping when writing the code.
+It invalidates our design scope that a caller should be aware of alpha dropping when writing the code. The reason that a
