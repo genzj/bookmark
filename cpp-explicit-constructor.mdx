@@ -31,6 +31,12 @@ public:
     RGB(const RGBA& rgba)
     {
         std::cout << "drop the alpha channel from " << rgba.debug_string() << std::endl;
+		// ... 
     }
 };
+
+void fill_something(const RGB& rgb)
+{
+    // fill something but doesn't support the alpha channel
+}
 ```
